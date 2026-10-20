@@ -106,9 +106,8 @@ h3,.card h2{font-size:17px;margin:12px 0}
 .car-nav button{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--text);font-size:20px;cursor:pointer}
 .car-nav button:hover{border-color:var(--accent)}
 
-/* фото со срезом по диагонали; заглушку заменить на <img class="photo" src="photos/..." alt="..."> */
-.photo{display:grid;place-items:center;width:100%;aspect-ratio:4/3;object-fit:cover;padding:16px;background:repeating-linear-gradient(45deg,#15151c 0 14px,#1a1a22 14px 28px);color:var(--muted);font-size:14px;text-align:center;clip-path:polygon(18% 0,100% 0,100% 100%,0 100%)}
-img.photo{padding:0}
+/* фото со срезом по диагонали; чтобы заменить фото — положите файл с тем же именем в photos/ */
+.photo{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:#15151c;clip-path:polygon(18% 0,100% 0,100% 100%,0 100%)}
 
 /* «уточнить у мастера»: делает — убрать class="check", не делает — удалить строку */
 .check{color:#fde68a;background:rgba(250,204,21,.12);border-radius:6px}
