@@ -126,8 +126,10 @@ h3{font-size:17px;margin:12px 0}
 dt{color:var(--muted);font-size:14px;margin-bottom:4px}
 dd{font-size:18px}
 dd a{text-decoration:none}
-dd small{display:block;margin-top:6px;font-size:14px}
-dd small a{color:var(--accent);text-decoration:underline}
+dd small{display:block;margin-top:6px;font-size:14px;color:var(--muted)}
+/* адрес открывается в 2ГИС: пунктир показывает, что он кликабельный */
+.map-link,.foot .map-link{text-decoration:underline dotted;text-decoration-color:var(--accent);text-underline-offset:4px}
+.map-link:hover{color:var(--cyan)}
 
 /* внутренние страницы */
 .page-head{position:relative;isolation:isolate;padding-block:32px 8px;background:linear-gradient(transparent 30%,var(--bg)),url(bg-circuit.svg) 0 0/480px}
