@@ -6,6 +6,8 @@
 | Заглушка | Чем заменить | Пример |
 |---|---|---|
 | `[ИМЯ]` | имя мастера (стоит рядом с телефоном) | Андрей |
+| `[ФИО]` | ФИО мастера полностью (внизу каждой страницы, по закону) | Иванов Иван Иванович |
+| `[ИНН]` | ИНН самозанятого | 450000000000 |
 | `[АДРЕС]` | улица, дом | ул. Ленина, 1 |
 | `[ТЕЛЕФОН]` | телефон, как его показывать | +7 (900) 123-45-67 |
 | `7XXXXXXXXXX` | телефон, только цифры | 79001234567 |
@@ -23,14 +25,13 @@
 |---|---|---|
 | `hero.webp` | главная, первый экран | https://unsplash.com/photos/dSosKR6g-W8 |
 | `toyota-lexus.webp` | Toyota и Lexus | https://unsplash.com/photos/r3cA8C6a-UA |
-| `nissan-infiniti.webp` | Nissan и Infiniti | https://unsplash.com/photos/Yk-0M8S0KdE |
+| `nissan-infiniti.webp` | Nissan и Infiniti | https://unsplash.com/photos/uwFW_Qyn3ow |
 | `vw-audi-skoda.webp` | VW, Audi, Skoda | https://unsplash.com/photos/_E4bZ0lBE3g |
-| `mercedes.webp` | Mercedes-Benz | https://unsplash.com/photos/Sv0AxtA8YxI |
+| `mercedes.webp` | Mercedes-Benz | https://unsplash.com/photos/gdRIqwPn5kI |
 | `peugeot-citroen.webp` | Peugeot и Citroën | https://unsplash.com/photos/sQvXW9o35K0 |
 | `kitajskie.webp` | Китайские авто | https://unsplash.com/photos/HxY1GC1-cxM |
 | `gruzovye.webp` | Грузовые | https://unsplash.com/photos/GBVDilE8yvI |
 | `diagnostika.webp` | Диагностика | https://unsplash.com/photos/g5nquYyJMEA |
-| `evro2.webp` | Евро-2 | https://unsplash.com/photos/I74mkR_3OP0 |
 | `klyuchi.webp` | Ключи | https://unsplash.com/photos/zI_FuGSk-B8 |
 | `airbag.webp` | SRS / Airbag | https://unsplash.com/photos/dqxdOxacJL0 |
 | `proshivka.webp` | Прошивка блоков | https://unsplash.com/photos/pfR18JNEMv8 |
@@ -42,7 +43,7 @@
 ## 3. Отзывы
 Отзывы находятся в `index.html`, в блоках `<figure class="review">`. Чтобы добавить отзыв, скопируйте любой блок `<figure>…</figure>` и замените текст.
 На компьютере видно три отзыва. Если их больше, сами появятся стрелки для прокрутки.
-Если оценка изменится, исправьте `4,7` в тексте, `--r:4.7` в звёздах (звёзды закрашиваются по этому числу) и `19 отзывов` на всех страницах.
+Оценка указана на всех страницах: `4,7` в тексте и `--r:4.7` в звёздах (звёзды закрашиваются по этому числу). Если на Авито она изменится, исправьте её на сайте. Число отзывов специально не указано: оно меняется часто.
 
 ## 4. Из чего состоит сайт
 ```
@@ -57,3 +58,11 @@ photos/         фотографии (WebP)
 
 ## 5. Публикация
 Нужны все `.html`, а также папки `assets` и `photos`. Папку `.claude` загружать не нужно, она исключена в `.gitignore`.
+
+## 6. Что убрано ради безопасности (юридически)
+- Услуги по отключению экологических систем (Евро-2, катализатор, EGR, мочевина AdBlue, сажевый фильтр, лямбда-зонд) убраны с сайта целиком.
+- Вместо «дилерская диагностика» — «на дилерском оборудовании», чтобы не выглядело, будто мастер официальный дилер.
+- Ключи и иммобилайзер — только владельцу, по СТС/ПТС и паспорту (написано на странице ключей и в карточке на главной).
+- Фото, где главное — логотип марки (Mercedes, Nissan), заменены на фото без логотипов.
+- Внизу каждой страницы — «Самозанятый [ФИО], ИНН [ИНН]» (закон об информации и закон о защите прав потребителей).
+- Перед запуском для клиентов перенесите сайт на российский хостинг (Beget, Timeweb): GitHub — иностранный сервер.
