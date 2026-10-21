@@ -12,6 +12,8 @@ a{color:inherit}
 .wrap{max-width:1320px;margin-inline:auto;padding-inline:clamp(16px,4vw,48px)}
 section{padding-block:64px}
 [id]{scroll-margin-top:80px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+.ico{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 h1,h2,h3,.logo,.stats b,.cta b,.score{font-family:Unbounded,system-ui,sans-serif;text-transform:uppercase;line-height:1.15}
 h1{font-size:clamp(30px,6vw,52px);margin:16px 0 20px}
 h1 em{font-style:normal;background:linear-gradient(90deg,var(--accent),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -21,7 +23,7 @@ h3{font-size:17px;margin:12px 0}
 .muted,.lead{color:var(--muted)}
 .lead{font-size:18px;max-width:560px}
 .btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-.btn{display:inline-block;padding:14px 22px;border-radius:999px;background:linear-gradient(120deg,var(--accent-bg),#0e7490);color:#fff;text-decoration:none;font-weight:600;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 22px;border-radius:999px;background:linear-gradient(120deg,var(--accent-bg),#0e7490);color:#fff;text-decoration:none;font-weight:600;white-space:nowrap}
 .btn.ghost{background:none;border:1px solid var(--line)}
 .btn:hover{filter:brightness(1.15)}
 
@@ -39,7 +41,11 @@ h3{font-size:17px;margin:12px 0}
 .menu>ul>li>a{display:block;padding:12px 0;font-weight:600}
 .dd ul{columns:2;column-gap:16px;padding-bottom:8px}
 .dd ul a{display:block;padding:6px 0;color:var(--muted)}
-.menu .btn{margin-top:16px;width:100%;text-align:center}
+.menu .tel{margin-top:16px}
+/* телефон с именем мастера: в шапке и в контактах */
+.tel{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;white-space:nowrap}
+.tel small{display:block;margin:0;font-size:12px;font-weight:400;line-height:1.2;color:var(--muted)}
+.tel-ico{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:linear-gradient(120deg,var(--accent-bg),#0e7490);color:#fff}
 
 /* первый экран: фон-плата + фото со срезом по диагонали */
 .hero{position:relative;isolation:isolate;overflow:hidden;padding-block:72px 0;background:linear-gradient(transparent 55%,var(--bg)),url(bg-circuit.svg) 0 0/480px}
@@ -68,8 +74,11 @@ h3{font-size:17px;margin:12px 0}
 .svc ul{margin-top:24px;list-style:none;columns:2 240px;column-gap:32px;color:var(--muted)}
 .svc li{break-inside:avoid;position:relative;padding:6px 0 6px 18px}
 .svc li::before{content:"";position:absolute;left:0;top:17px;width:8px;height:2px;background:var(--accent)}
-.svc li a{color:var(--text);text-decoration:none}
-.svc li a:hover{color:var(--accent)}
+/* ссылки в карточках: подчёркнуты и со стрелкой, чтобы было видно, что они кликабельны; пункты без ссылки — серые */
+.svc li a{color:var(--text);text-decoration:underline;text-decoration-color:rgba(167,139,250,.55);text-underline-offset:4px;transition:color .2s,text-decoration-color .2s}
+.svc li a::after{content:"→";display:inline-block;margin-left:6px;color:var(--cyan);transition:transform .2s}
+.svc li a:hover{color:var(--cyan);text-decoration-color:currentColor}
+.svc li a:hover::after{transform:translateX(4px)}
 .svc .note{position:relative;margin-top:16px;color:var(--accent);font-size:14px}
 
 /* тахометр */
@@ -106,15 +115,12 @@ h3{font-size:17px;margin:12px 0}
 .review blockquote::before{content:"\201C";display:block;height:40px;font:700 64px/1 Georgia,serif;color:var(--accent)}
 .review figcaption{color:var(--muted);font-size:14px}
 .car-nav{display:flex;gap:8px;margin-top:20px}
+.car-nav[hidden]{display:none}
 .car-nav button{width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--text);font-size:20px;cursor:pointer}
 .car-nav button:hover{border-color:var(--accent)}
 
 /* фото первого экрана главной со срезом по диагонали; чтобы заменить фото — положите файл с тем же именем в photos/ */
 .photo{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:#15151c;clip-path:polygon(18% 0,100% 0,100% 100%,0 100%)}
-
-/* «уточнить у мастера»: делает — убрать class="check", не делает — удалить строку */
-.check{color:#fde68a;background:rgba(250,204,21,.12);border-radius:6px}
-.check::after{content:"уточнить";margin-left:8px;padding:1px 6px;border-radius:4px;background:#facc15;color:#000;font-size:11px;vertical-align:middle}
 
 .contacts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:28px}
 dt{color:var(--muted);font-size:14px;margin-bottom:4px}
@@ -152,7 +158,11 @@ dd small a{color:var(--accent);text-decoration:underline}
 .foot a{text-decoration:none}
 .foot a:hover{color:var(--text)}
 .copy{margin-top:32px}
-.callbar{display:none;position:fixed;left:16px;right:16px;bottom:16px;z-index:10;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.callbar{display:none;position:fixed;left:16px;right:16px;bottom:16px;z-index:10;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+/* кнопка «наверх»: появляется, когда прокрутили больше экрана (site.js) */
+.to-top{position:fixed;right:16px;bottom:16px;z-index:15;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:var(--card);border:1px solid var(--line);color:var(--text);box-shadow:0 8px 24px rgba(0,0,0,.5);opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .3s,transform .3s,visibility .3s,border-color .2s}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{border-color:var(--accent)}
 
 @media (min-width:960px){
   .burger{display:none}
@@ -166,7 +176,8 @@ dd small a{color:var(--accent);text-decoration:underline}
   .dd:hover ul,.dd:focus-within ul{display:block}
   .dd ul a{padding:8px 12px;border-radius:8px}
   .dd ul a:hover{background:#1c1c24;color:var(--text)}
-  .menu .btn{margin:0;width:auto;padding:10px 18px}
+  .menu .tel{margin:0}
+  .carousel{grid-auto-columns:calc((100% - 32px) / 3)}
 
   .hero{min-height:600px;padding-block:96px}
   .hero-text{max-width:min(620px,50vw)}
@@ -179,4 +190,4 @@ dd small a{color:var(--accent);text-decoration:underline}
   .split-media img{-webkit-mask-image:linear-gradient(90deg,transparent,#000 40%);mask-image:linear-gradient(90deg,transparent,#000 40%)}
   .site-footer{padding-bottom:40px}
 }
-@media (max-width:640px){.callbar{display:block}}
+@media (max-width:640px){.callbar{display:flex}.to-top{bottom:84px}}

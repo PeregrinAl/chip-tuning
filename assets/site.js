@@ -7,8 +7,9 @@ const toggleMenu = open => {
 burger.onclick = () => toggleMenu(!document.body.classList.contains('menu-open'));
 document.querySelector('.menu').onclick = e => { if (e.target.closest('a')) toggleMenu(false); };
 
-// Тахометр и появление карточек услуг при прокрутке (только на главной).
-// Скрипт передаёт в CSS число от 0 до 1: --p для стрелки, --r для каждой карточки.
+// При прокрутке: кнопка «наверх» (на всех страницах), тахометр и появление карточек услуг (на главной).
+// Тахометру и карточкам скрипт передаёт в CSS число от 0 до 1: --p для стрелки, --r для каждой карточки.
+const toTop = document.querySelector('.to-top');
 const gauge = document.querySelector('.gauge');
 const cards = document.querySelectorAll('.reveal');
 const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -18,6 +19,7 @@ let queued = false;
 function onScroll() {
   queued = false;
   const vh = innerHeight;
+  toTop.classList.toggle('show', scrollY > vh);
   if (gauge) {
     let p;
     if (wide.matches) { // на компьютере тахометр прилипает: стрелка идёт, пока листается весь блок услуг
@@ -34,14 +36,18 @@ function onScroll() {
     c.style.setProperty('--r', clamp((vh - r.top) / (r.height * 0.85)));
   });
 }
-if (gauge || cards.length) {
-  addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(onScroll); } }, { passive: true });
-  addEventListener('resize', onScroll);
-  onScroll();
-}
+addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(onScroll); } }, { passive: true });
+addEventListener('resize', onScroll);
+onScroll();
 
-// Карусель отзывов (только на главной)
+// Карусель отзывов (только на главной): стрелки показываются, только если отзывы не помещаются целиком
 const track = document.querySelector('.carousel');
-if (track) document.querySelectorAll('[data-dir]').forEach(btn => {
-  btn.onclick = () => track.scrollBy({ left: btn.dataset.dir * track.firstElementChild.offsetWidth, behavior: 'smooth' });
-});
+if (track) {
+  const nav = document.querySelector('.car-nav');
+  const fit = () => { nav.hidden = track.scrollWidth <= track.clientWidth + 1; };
+  addEventListener('resize', fit);
+  fit();
+  nav.querySelectorAll('[data-dir]').forEach(btn => {
+    btn.onclick = () => track.scrollBy({ left: btn.dataset.dir * track.firstElementChild.offsetWidth, behavior: 'smooth' });
+  });
+}
